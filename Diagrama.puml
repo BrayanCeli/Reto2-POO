@@ -1,0 +1,45 @@
+@startuml SistemaElectronica
+
+
+class ComponenteElectronico {
+  + idComponente : String
+  + nombre : String
+  + cantidadStock : int
+  + ubicacionAlmacen : String
+  + actualizarStock (cantidad: int)
+}
+
+class ComponentePasivo {
+  + tolerancia : String
+  + valor : String
+}
+
+class ComponenteActivo {
+  + voltajeOperacion : String
+  + fabricante : String
+}
+
+class Proveedor {
+  + idProveedor : String
+  + nombre : String
+  + realizarPedido(componente: ComponenteElectronico, cantidad: int)
+}
+
+class Pedido {
+  + idPedido : String
+  + fecha : Date
+  + calcularCostoTotal() : float
+}
+
+class Almacen {
+  + seccionesMap : string
+  + buscarComponente(nombre: String) : ComponenteElectronico
+}
+
+
+ComponenteElectronico <|-- ComponentePasivo
+ComponenteElectronico <|-- ComponenteActivo
+
+Proveedor "Suministra" -- "Se pide en" Pedido
+Pedido "contiene" -- "es parte de" ComponenteElectronico
+Almacen "Guarda" -- "Esta en" ComponenteElectronico
